@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SM232X FFW 加解密工具</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 0 20px; }
+        h2 { color: #333; }
+        .file-input { margin: 20px 0; }
+        .buttons { display: flex; gap: 10px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; border: none; border-radius: 4px; }
+        #decodeBtn { background-color: #4CAF50; color: white; }
+        #encodeBtn { background-color: #2196F3; color: white; }
+        #status { margin-top: 20px; padding: 10px; border-radius: 4px; background-color: #f5f5f5; }
+        a { color: #0066cc; }
+        .footer { margin-top: 30px; font-size: 12px; color: #777; }
+    </style>
+</head>
+<body>
+    <h2>SM232X FFW 文件加解密工具</h2>
+    <p>选择文件，然后点击“解码”或“编码”。处理后自动下载结果文件。</p>
+    <div class="file-input">
+        <input type="file" id="fileInput" accept="*/*">
+    </div>
+    <div class="buttons">
+        <button id="decodeBtn">解码 (Decode)</button>
+        <button id="encodeBtn">编码 (Encode)</button>
+    </div>
+    <div id="status">就绪，请选择文件。</div>
+
+    <script>
+        // 工具函数：循环右移（用于解码）
+        function ror(val, r) {
+            r = r % 8;
+            return ((val >>> r) | (val << (8 - r))) & 0xFF;
+        }
+        // 循环左移（用于编码）
+        function rol(val, r) {
+            r = r % 8;
+            return ((val << r) | (val >>> (8 - r))) & 0xFF;
+        }
+        // 根据索引 i 计算掩码
+        function computeMask(i) {
+            let mask = (1 << (i & 3)) ^ (1 << (i % 7)) ^ (1 << ((i % 13) + 4));
+            return mask & 0xFF;
+        }
+
+        // 解码处理
+        function decode(data) {
+            let out = new Uint8Array(data.length);
+            for (let i = 0; i < data.length; i++) {
+                let r = i % 8;
+                let tmp = ror(data[i], r);
+                let mask = computeMask(i);
+                out[i] = tmp ^ mask;
+            }
+            return out;
+        }
+
+        // 编码处理
+        function encode(data) {
+            let out = new Uint8Array(data.length);
+            for (let i = 0; i < data.length; i++) {
+                let r = i % 8;
+                let mask = computeMask(i);
+                let tmp = data[i] ^ mask;
+                out[i] = rol(tmp, r);
+            }
+            return out;
+        }
+
+        // 生成输出文件名
+        function getOutputName(originalName, mode) {
+            let suffix = mode === 'decode' ? '_decoded' : '_encoded';
+            return originalName + suffix;
+        }
+
+        // 处理文件
+        function processFile(mode) {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (!file) {
+                document.getElementById('status').innerText = '请先选择一个文件。';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const arrayBuffer = e.target.result;
+                const data = new Uint8Array(arrayBuffer);
+                let result;
+                if (mode === 'decode') {
+                    result = decode(data);
+                } else {
+                    result = encode(data);
+                }
+
+                // 创建Blob并下载
+                const blob = new Blob([result], { type: 'application/octet-stream' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = getOutputName(file.name, mode);
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                document.getElementById('status').innerHTML = `处理完成！<a href="${url}" download="${getOutputName(file.name, mode)}">点击重新下载</a>`;
+            };
+            reader.readAsArrayBuffer(file);
+            document.getElementById('status').innerText = '处理中...';
+        }
+
+        // 绑定按钮事件
+        document.getElementById('decodeBtn').addEventListener('click', () => processFile('decode'));
+        document.getElementById('encodeBtn').addEventListener('click', () => processFile('encode'));
+    </script>
+    <div class="footer">
+        <p>Made By Ryuuka_Hoshino</p>
+    </div>
+</body>
+</html>
