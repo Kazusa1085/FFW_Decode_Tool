@@ -111,7 +111,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        release_name: SM232X FFW Tool ${{ github.ref_name }}
         files: |
           artifacts/windows-latest-binaries/sm232x_ffwtool-windows-x86_64-upx.exe
           artifacts/windows-latest-binaries/sm232x_ffwtool-windows-x86_64.exe
