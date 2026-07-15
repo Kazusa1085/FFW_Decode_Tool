@@ -1,48 +1,61 @@
-/* ===== FFW 工具特有样式 ===== */
+/* =============================================================
+   FFW 工具专属样式（本页面独有，通用部分见 common.css）
+   ============================================================= */
+
+.tip {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0 0 24px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+.tip svg { flex-shrink: 0; width: 16px; height: 16px; margin-top: 2px; color: var(--success); }
 
 /* ---------- 文件输入 ---------- */
-.file-input {
-  margin: 12px 0 20px 0;
-}
+.file-input { margin: 4px 0 18px; }
 .file-input input[type="file"] {
-  display: block;
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px dashed var(--border);
-  border-radius: var(--radius);
-  font-size: 14px;
-  background: var(--bg-container);
-  cursor: pointer;
-  transition: 0.2s;
-  color: var(--text-muted);
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px dashed var(--border);
+    border-radius: 12px;
+    font-size: 0.88rem;
+    background: var(--surface);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: border-color .15s ease, background-color .15s ease;
 }
 .file-input input[type="file"]:hover {
-  border-color: var(--primary);
-  background: var(--primary-light);
+    border-color: var(--accent);
+    background: var(--accent-soft);
 }
 .file-input input[type="file"]::file-selector-button {
-  padding: 8px 20px;
-  border: none;
-  border-radius: 6px;
-  background: var(--primary);
-  color: white;
-  font-size: 14px;
-  cursor: pointer;
-  margin-right: 16px;
-  transition: 0.2s;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 14px;
+    transition: background-color .15s ease;
 }
 .file-input input[type="file"]::file-selector-button:hover {
-  background: var(--primary-dark);
+    background: var(--accent-strong);
 }
 
 /* ---------- 按钮组 ---------- */
 .buttons {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin: 8px 0 16px 0;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 4px 0 4px;
 }
-.buttons .btn {
-  flex: 1;
-  justify-content: center;
-}
+.buttons .btn { flex: 1; min-width: 150px; }
