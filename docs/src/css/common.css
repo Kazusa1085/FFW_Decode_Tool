@@ -1,256 +1,391 @@
 /* =============================================================
    公共样式：主题变量、基础布局、通用组件
-   与 Meting API (ffw.raana.icu 同系列项目) 使用同一套设计系统，
-   便于多个小工具之间保持一致的视觉风格。
+   设计与主页统一风格
+   — OKLCH 色相驱动 · 玻璃拟态 · 柔和动画
    ============================================================= */
 
 :root {
-    --bg: #fbfafc;
-    --surface: #ffffff;
-    --surface-2: #f3eff7;
-    --text: #1c1622;
-    --text-muted: #6e6577;
-    --border: #e7e1ec;
-    --accent: #c81e5c;
-    --accent-strong: #a5164b;
-    --accent-soft: #fbe4ed;
-    --success: #1e9e6b;
-    --success-soft: #e3f5ec;
-    --danger: #dc2626;
-    --danger-soft: #fde8e8;
-    --code-bg: #f3eff7;
-    --code-text: #7a2743;
-    --shadow: rgba(28, 22, 34, 0.08);
+  --hue: 345;
+  --radius-large: 1rem;
 
-    --font-display: 'Bricolage Grotesque', 'PingFang SC', 'Microsoft YaHei', ui-sans-serif, system-ui, sans-serif;
-    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif;
-    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* —— Light mode —— */
+  --bg:             oklch(0.96 0.005 var(--hue));
+  --surface:        #ffffff;
+  --surface-2:      oklch(0.935 0.012 var(--hue));
+  --text:           rgba(0, 0, 0, 0.85);
+  --text-muted:     rgba(0, 0, 0, 0.50);
+  --border:         rgba(0, 0, 0, 0.08);
+  --accent:         oklch(0.55 0.20 var(--hue));
+  --accent-strong:  oklch(0.42 0.22 var(--hue));
+  --accent-soft:    oklch(0.935 0.03 var(--hue));
+  --success:        #1e9e6b;
+  --success-soft:   #e3f5ec;
+  --danger:         #dc2626;
+  --danger-soft:    #fde8e8;
+  --code-bg:        oklch(0.93 0.015 var(--hue));
+  --code-text:      oklch(0.45 0.15 var(--hue));
+  --shadow:         rgba(0, 0, 0, 0.08);
+
+  --btn-primary-bg:        oklch(0.90 0.04 var(--hue));
+  --btn-primary-bg-hover:  oklch(0.84 0.08 var(--hue));
+  --btn-primary-text:      oklch(0.50 0.18 var(--hue));
+  --btn-primary-text-hover:oklch(0.38 0.22 var(--hue));
+  --btn-success-bg:        #e3f5ec;
+  --btn-success-bg-hover:  #c8f0dd;
+  --btn-success-text:      #1e9e6b;
+  --btn-success-text-hover:#147d52;
+
+  --font-display: 'Bricolage Grotesque', 'PingFang SC', 'Microsoft YaHei', ui-sans-serif, system-ui, sans-serif;
+  --font-body:    'Roboto', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
+/* —— 自动深色模式（跟随系统，且用户未手动设置主题时生效） —— */
 @media (prefers-color-scheme: dark) {
-    :root:not([data-theme]) {
-        --bg: #15111c;
-        --surface: #1e1826;
-        --surface-2: #251e30;
-        --text: #f3eef7;
-        --text-muted: #ab9fb6;
-        --border: #332b3e;
-        --accent: #ff6e9c;
-        --accent-strong: #ff8fb2;
-        --accent-soft: #3b2130;
-        --success: #3ddc97;
-        --success-soft: rgba(61, 220, 151, 0.12);
-        --danger: #f87171;
-        --danger-soft: rgba(248, 113, 113, 0.12);
-        --code-bg: #251e30;
-        --code-text: #ffb8cf;
-        --shadow: rgba(0, 0, 0, 0.4);
-    }
+  :root:not([data-theme]) {
+    --bg:             oklch(0.16 0.014 var(--hue));
+    --surface:        oklch(0.23 0.015 var(--hue));
+    --surface-2:      oklch(0.20 0.012 var(--hue));
+    --text:           rgba(255, 255, 255, 0.85);
+    --text-muted:     rgba(255, 255, 255, 0.45);
+    --border:         rgba(255, 255, 255, 0.08);
+    --accent:         oklch(0.65 0.18 var(--hue));
+    --accent-strong:  oklch(0.72 0.14 var(--hue));
+    --accent-soft:    oklch(0.22 0.06 var(--hue));
+    --success:        #3ddc97;
+    --success-soft:   rgba(61, 220, 151, 0.12);
+    --danger:         #f87171;
+    --danger-soft:    rgba(248, 113, 113, 0.12);
+    --code-bg:        oklch(0.22 0.02 var(--hue));
+    --code-text:      oklch(0.78 0.08 var(--hue));
+    --shadow:         rgba(0, 0, 0, 0.4);
+
+    --btn-primary-bg:        oklch(0.26 0.04 var(--hue));
+    --btn-primary-bg-hover:  oklch(0.32 0.07 var(--hue));
+    --btn-primary-text:      oklch(0.68 0.14 var(--hue));
+    --btn-primary-text-hover:oklch(0.76 0.12 var(--hue));
+    --btn-success-bg:        rgba(61, 220, 151, 0.12);
+    --btn-success-bg-hover:  rgba(61, 220, 151, 0.20);
+    --btn-success-text:      #3ddc97;
+    --btn-success-text-hover:#5ce6aa;
+  }
 }
 
+/* —— 手动深色模式 —— */
 :root[data-theme="dark"] {
-    --bg: #15111c;
-    --surface: #1e1826;
-    --surface-2: #251e30;
-    --text: #f3eef7;
-    --text-muted: #ab9fb6;
-    --border: #332b3e;
-    --accent: #ff6e9c;
-    --accent-strong: #ff8fb2;
-    --accent-soft: #3b2130;
-    --success: #3ddc97;
-    --success-soft: rgba(61, 220, 151, 0.12);
-    --danger: #f87171;
-    --danger-soft: rgba(248, 113, 113, 0.12);
-    --code-bg: #251e30;
-    --code-text: #ffb8cf;
-    --shadow: rgba(0, 0, 0, 0.4);
+  --bg:             oklch(0.16 0.014 var(--hue));
+  --surface:        oklch(0.23 0.015 var(--hue));
+  --surface-2:      oklch(0.20 0.012 var(--hue));
+  --text:           rgba(255, 255, 255, 0.85);
+  --text-muted:     rgba(255, 255, 255, 0.45);
+  --border:         rgba(255, 255, 255, 0.08);
+  --accent:         oklch(0.65 0.18 var(--hue));
+  --accent-strong:  oklch(0.72 0.14 var(--hue));
+  --accent-soft:    oklch(0.22 0.06 var(--hue));
+  --success:        #3ddc97;
+  --success-soft:   rgba(61, 220, 151, 0.12);
+  --danger:         #f87171;
+  --danger-soft:    rgba(248, 113, 113, 0.12);
+  --code-bg:        oklch(0.22 0.02 var(--hue));
+  --code-text:      oklch(0.78 0.08 var(--hue));
+  --shadow:         rgba(0, 0, 0, 0.4);
+
+  --btn-primary-bg:        oklch(0.26 0.04 var(--hue));
+  --btn-primary-bg-hover:  oklch(0.32 0.07 var(--hue));
+  --btn-primary-text:      oklch(0.68 0.14 var(--hue));
+  --btn-primary-text-hover:oklch(0.76 0.12 var(--hue));
+  --btn-success-bg:        rgba(61, 220, 151, 0.12);
+  --btn-success-bg-hover:  rgba(61, 220, 151, 0.20);
+  --btn-success-text:      #3ddc97;
+  --btn-success-text-hover:#5ce6aa;
 }
 
+/* =============================================================
+   基础重置
+   ============================================================= */
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 
 body {
-    margin: 0;
-    min-height: 100vh;
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
-    font-size: 16px;
-    line-height: 1.6;
-    transition: background-color .25s ease, color .25s ease;
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  transition: background-color .3s ease, color .3s ease;
 }
 
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 :focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-    border-radius: 4px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .wrap {
-    max-width: 620px;
-    margin: 0 auto;
-    padding: 0 24px;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-/* ---------- 顶部导航 ---------- */
+/* =============================================================
+   进场动画
+   ============================================================= */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anim-enter {
+  animation: fade-in-up 350ms ease both;
+}
+.anim-d0 { animation-delay:   0ms; }
+.anim-d1 { animation-delay:  60ms; }
+.anim-d2 { animation-delay: 120ms; }
+.anim-d3 { animation-delay: 180ms; }
+.anim-d4 { animation-delay: 240ms; }
+.anim-d5 { animation-delay: 300ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-enter { animation: none; opacity: 1; transform: none; }
+}
+
+/* =============================================================
+   玻璃拟态卡片基础类
+   ============================================================= */
+.card-base {
+  background: var(--surface-2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-large);
+  border: 1px solid var(--border);
+  transform: translateZ(0);
+}
+
+/* =============================================================
+   顶部导航
+   ============================================================= */
 .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    background: color-mix(in srgb, var(--bg) 82%, transparent);
-    border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  border-bottom: 1px solid var(--border);
 }
 .site-header .wrap {
-    max-width: 660px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    height: 60px;
+  max-width: 660px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 60px;
 }
 
 .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--text);
-    white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  white-space: nowrap;
+  transition: color .2s ease;
 }
-.brand:hover { text-decoration: none; }
+.brand:hover { text-decoration: none; color: var(--accent); }
 
 .nav-right { display: flex; align-items: center; gap: 14px; }
 
+/* btn-plain 风格：透明底，hover 出现淡背景 */
 .icon-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    color: var(--text-muted);
-    cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease, transform .15s ease;
 }
-.icon-btn:hover { color: var(--accent); border-color: var(--accent); }
+.icon-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+.icon-btn:active { transform: translateY(0) scale(0.95); }
 .icon-btn svg { width: 17px; height: 17px; }
+
+/* 主题切换图标显隐 */
 .theme-toggle .icon-moon { display: none; }
 :root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
 :root[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 @media (prefers-color-scheme: dark) {
-    :root:not([data-theme]) .theme-toggle .icon-sun { display: none; }
-    :root:not([data-theme]) .theme-toggle .icon-moon { display: block; }
+  :root:not([data-theme]) .theme-toggle .icon-sun { display: none; }
+  :root:not([data-theme]) .theme-toggle .icon-moon { display: block; }
 }
 
-/* ---------- 品牌动效标记：芯片图标，呼应"芯片配置文件加解密"主题 ---------- */
-.chip-mark { display: inline-flex; align-items: center; justify-content: center; width: 19px; height: 19px; color: var(--accent); flex-shrink: 0; }
+/* =============================================================
+   品牌芯片动效
+   ============================================================= */
+.chip-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 19px;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: color .2s ease;
+}
 .chip-mark svg { width: 100%; height: 100%; }
 .chip-mark .chip-dot { animation: chip-blink 1.8s ease-in-out infinite; }
-@keyframes chip-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+@keyframes chip-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.2; }
+}
 @media (prefers-reduced-motion: reduce) {
-    .chip-mark .chip-dot { animation: none; opacity: 0.9; }
+  .chip-mark .chip-dot { animation: none; opacity: 0.9; }
 }
 
-/* ---------- 卡片容器 ---------- */
+/* =============================================================
+   主内容容器
+   ============================================================= */
 .container {
-    max-width: 620px;
-    margin: 0 auto;
-    padding: 44px 24px 60px;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 44px 24px 60px;
 }
 
 h1 {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(1.5rem, 1.3rem + 1vw, 1.9rem);
-    line-height: 1.25;
-    letter-spacing: -0.01em;
-    margin: 0 0 6px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 1.3rem + 1vw, 1.9rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 0 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 h1 small {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
 }
 
 .sub {
-    color: var(--text-muted);
-    font-size: 0.98rem;
-    line-height: 1.7;
-    margin: 0 0 20px;
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  line-height: 1.7;
+  margin: 0 0 20px;
 }
 
-/* ---------- 按钮 ---------- */
+/* =============================================================
+   按钮（btn-regular 风格：常驻实色背景 + hover 上抬 + active 按压）
+   ============================================================= */
 .btn {
-    padding: 12px 22px;
-    border: none;
-    border-radius: 999px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    font-family: var(--font-body);
-    cursor: pointer;
-    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
-.btn:hover { transform: translateY(-1px); }
-.btn:active { transform: translateY(0); }
-.btn-primary { background: var(--accent); color: #fff; }
-.btn-primary:hover { background: var(--accent-strong); box-shadow: 0 6px 16px -6px var(--shadow); }
-.btn-success { background: var(--success); color: #fff; }
-.btn-success:hover { filter: brightness(0.94); box-shadow: 0 6px 16px -6px var(--shadow); }
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -8px var(--shadow);
+}
+.btn:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: none;
+}
+.btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  box-shadow: 0 2px 8px -2px var(--shadow);
+}
+.btn-primary:hover {
+  background: var(--btn-primary-bg-hover);
+  color: var(--btn-primary-text-hover);
+}
+.btn-success {
+  background: var(--btn-success-bg);
+  color: var(--btn-success-text);
+  box-shadow: 0 2px 8px -2px var(--shadow);
+}
+.btn-success:hover {
+  background: var(--btn-success-bg-hover);
+  color: var(--btn-success-text-hover);
+}
 
-/* ---------- 状态消息 ---------- */
+/* =============================================================
+   状态消息
+   ============================================================= */
 .message {
-    padding: 13px 16px;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin-top: 16px;
-    border: 1px solid var(--border);
-    background: var(--surface-2);
-    color: var(--text-muted);
-    transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+  padding: 13px 16px;
+  border-radius: var(--radius-large);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-top: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease;
 }
-.message.info { border-color: var(--accent-soft); background: var(--accent-soft); color: var(--accent-strong); }
+.message.info    { border-color: var(--accent-soft);  background: var(--accent-soft);  color: var(--accent-strong); }
 .message.success { border-color: var(--success-soft); background: var(--success-soft); color: var(--success); }
-.message.error { border-color: var(--danger-soft); background: var(--danger-soft); color: var(--danger); }
+.message.error   { border-color: var(--danger-soft);  background: var(--danger-soft);  color: var(--danger); }
 .message a { color: inherit; font-weight: 600; text-decoration: underline; }
 
-/* ---------- 页脚 ---------- */
+/* =============================================================
+   页脚
+   ============================================================= */
 .footer-note {
-    margin-top: 32px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    text-align: center;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
 }
 .footer-note .github-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  transition: color .2s ease;
 }
 .footer-note .github-link:hover { color: var(--accent); text-decoration: none; }
 
-/* ---------- 响应式 ---------- */
+/* =============================================================
+   响应式
+   ============================================================= */
 @media (max-width: 640px) {
-    .wrap { padding: 0 18px; }
-    .container { padding: 32px 18px 48px; }
+  .wrap       { padding: 0 18px; }
+  .container  { padding: 32px 18px 48px; }
+  .btn        { padding: 11px 18px; font-size: 0.9rem; }
 }

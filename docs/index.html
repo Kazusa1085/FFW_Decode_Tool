@@ -12,7 +12,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="src/css/common.css" />
   <link rel="stylesheet" href="src/css/style.css" />
@@ -63,35 +63,35 @@
   </header>
 
   <div class="container">
-    <h1>
+    <h1 class="anim-enter anim-d0">
       🔐 SM232X FFW 加解密工具
       <small>编码 · 解码</small>
     </h1>
-    <div class="sub">
+    <div class="sub anim-enter anim-d1">
       选择文件，然后点击「解码」或「编码」，处理后自动下载结果文件。
     </div>
 
-    <div class="tip">
+    <div class="tip anim-enter anim-d2">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
       <div>文件仅在浏览器本地处理，不会上传至任何服务器。</div>
     </div>
 
     <!-- 文件选择 -->
-    <div class="file-input">
+    <div class="file-input anim-enter anim-d3">
       <input type="file" id="fileInput" accept="*/*" />
     </div>
 
     <!-- 按钮组 -->
-    <div class="buttons">
+    <div class="buttons anim-enter anim-d4">
       <button class="btn btn-success" id="decodeBtn">🔓 解码 (Decode)</button>
       <button class="btn btn-primary" id="encodeBtn">🔒 编码 (Encode)</button>
     </div>
 
     <!-- 状态消息 -->
-    <div id="status" class="message info">📌 就绪，请选择文件。</div>
+    <div id="status" class="message info anim-enter anim-d5">📌 就绪，请选择文件。</div>
 
     <!-- 页脚 -->
-    <div class="footer-note">
+    <div class="footer-note anim-enter anim-d5">
       <a href="https://github.com/M0rt1s0114/FFW_Decode_Tool" target="_blank" rel="noopener noreferrer" class="github-link">
         <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         <span>Made By Ryuuka_Hoshino · 项目地址</span>

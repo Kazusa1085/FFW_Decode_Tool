@@ -2,60 +2,77 @@
    FFW 工具专属样式（本页面独有，通用部分见 common.css）
    ============================================================= */
 
+/* ---------- 提示框（玻璃拟态） ---------- */
 .tip {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    margin: 0 0 24px;
-    padding: 11px 14px;
-    border-radius: 10px;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    line-height: 1.6;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 0 24px;
+  padding: 11px 14px;
+  border-radius: var(--radius-large);
+  background: var(--surface-2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  transform: translateZ(0);
 }
-.tip svg { flex-shrink: 0; width: 16px; height: 16px; margin-top: 2px; color: var(--success); }
+.tip svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  color: var(--success);
+}
 
 /* ---------- 文件输入 ---------- */
 .file-input { margin: 4px 0 18px; }
 .file-input input[type="file"] {
-    display: block;
-    width: 100%;
-    padding: 14px 16px;
-    border: 1.5px dashed var(--border);
-    border-radius: 12px;
-    font-size: 0.88rem;
-    background: var(--surface);
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: border-color .15s ease, background-color .15s ease;
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius-large);
+  font-size: 0.88rem;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease;
 }
 .file-input input[type="file"]:hover {
-    border-color: var(--accent);
-    background: var(--accent-soft);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 .file-input input[type="file"]::file-selector-button {
-    padding: 8px 18px;
-    border: none;
-    border-radius: 999px;
-    background: var(--accent);
-    color: #fff;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    margin-right: 14px;
-    transition: background-color .15s ease;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 999px;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  margin-right: 14px;
+  transition: background-color .2s ease, color .2s ease, transform .15s ease;
 }
 .file-input input[type="file"]::file-selector-button:hover {
-    background: var(--accent-strong);
+  background: var(--btn-primary-bg-hover);
+  color: var(--btn-primary-text-hover);
+  transform: translateY(-1px);
+}
+.file-input input[type="file"]::file-selector-button:active {
+  transform: translateY(0) scale(0.97);
 }
 
 /* ---------- 按钮组 ---------- */
 .buttons {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin: 4px 0 4px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 4px 0 4px;
 }
 .buttons .btn { flex: 1; min-width: 150px; }
